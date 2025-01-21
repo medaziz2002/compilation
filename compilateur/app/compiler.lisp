@@ -55,3 +55,17 @@
       (DIV :R1 :R0) ; Diviser :R1 par :R0, stocker le résultat dans :R0
       (PUSH :R0)))) ; Empiler le résultat depuis :R0
 
+
+    (defun comp-substutition (operands ctx)
+  (append 
+     ;; Compilation du premier opérande
+     (comp (first operands) ctx)
+          (comp (second operands) ctx)
+          ;; Compilation du deuxième opérande
+          '((POP :R1); Dépiler le premier opérande dans :R1 (changement d'ordre)
+           (POP :R0) ; Dépiler le deuxième opérande dans :R0
+          (SUB :R1 :R0) ; Diviser :R1 par :R0, stocker le résultat dans :R0
+          (PUSH :R0)))); Empiler le résultat depuis :R0
+    
+    
+
