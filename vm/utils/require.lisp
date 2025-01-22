@@ -1,0 +1,5 @@
+(require "vm/utils/array.lisp")
+(require "vm/utils/attr.lisp")
+(require "vm/utils/vm.lisp")
+(require "vm/utils/map.lisp")
+(require "vm/utils/mem.lisp")
