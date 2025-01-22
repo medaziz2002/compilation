@@ -1,9 +1,11 @@
-(require "compilateur/app/compiler.lisp")
-(require "compilateur/app/constant-compiler.lisp")
-(require "compilateur/app/function-compiler.lisp")
-(require "compilateur/app/logic-operations-compiler.lisp")
-(require "compilateur/app/sequence-compiler.lisp")  ;; Vérification de la casse
-(require "compilateur/utils/label.lisp")
+
+(require "app/constant-compiler.lisp")
+(require "app/function-compiler.lisp")
+(require "app/logic-operations-compiler.lisp")
+(require "app/variable-compiler.lisp")
+(require "app/sequence-compiler.lisp")  ;; Vérification de la casse
+(require "utils/label.lisp")
+(require "app/arithmetic-compiler.lisp")
 
 (defun comp (expr &optional (ctx '()))
   (cond
@@ -11,7 +13,7 @@
     ((symbolp expr) (compile-variable expr ctx))
     
     ;; Compilation des constantes
-    ((atom expr) (compile-constant expr ctx))
+    ((atom expr) (compile-constante expr ctx))
     
     ;; Compilation des expressions de liste
     ((listp expr)
@@ -19,7 +21,7 @@
        ;; Cas pour chaque opération
        ((equal (first expr) '+) (compile-addition (cdr expr) ctx))
        ((equal (first expr) '-) (compile-subtraction (cdr expr) ctx))
-       ((equal (first expr) '/') (compile-division (cdr expr) ctx))
+       ((equal (first expr) '/) (compile-division (cdr expr) ctx))
        ((equal (first expr) '*) (compile-multiplication (cdr expr) ctx))
        ;; Comparaisons
        ((equal (first expr) '>=) (compile-greater-or-equal (cdr expr) ctx))
